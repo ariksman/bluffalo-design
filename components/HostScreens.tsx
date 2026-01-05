@@ -80,39 +80,48 @@ export const HostLobby = () => (
 
 // --- HOST ROUND INTRO ---
 export const HostRoundIntro = () => (
-    <div className="relative z-10 flex h-full w-full flex-col items-center justify-center p-8">
-        <div className="w-full max-w-5xl flex flex-col items-center gap-12">
-            <div className="group relative transform transition-all duration-300 hover:scale-[1.02]">
-                <div className="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl bg-black"></div>
-                <div className="relative flex flex-col items-center justify-center rounded-2xl border-4 border-black bg-card-cream px-20 py-16 text-center md:px-32 md:py-24">
-                    <div className="absolute -top-6 -left-6 h-14 w-14 flex items-center justify-center rounded-full border-4 border-black bg-error-red shadow-hard-sm z-20">
-                        <span className="material-symbols-outlined text-3xl font-bold text-white">priority_high</span>
-                    </div>
-                    <div className="absolute -bottom-6 -right-6 h-14 w-14 flex items-center justify-center rounded-full border-4 border-black bg-success-green shadow-hard-sm z-20">
-                        <span className="material-symbols-outlined text-3xl font-bold text-white">check</span>
-                    </div>
-                    <p className="mb-4 text-xl font-bold uppercase tracking-[0.25em] text-gray-800 md:text-2xl">Trivia Battle</p>
-                    <div className="flex flex-col items-center leading-none">
-                        <span className="text-6xl font-black uppercase tracking-tighter text-background-dark md:text-8xl">Round</span>
-                        <span className="relative z-10 -mt-2 text-[8rem] font-black leading-none text-primary text-shadow-hard md:text-[12rem] stroke-black">
-                            1
-                        </span>
+    <div className="bg-background-dark font-display text-cream overflow-hidden h-screen w-screen selection:bg-primary selection:text-black">
+        <div className="fixed inset-0 z-0 opacity-[0.15] pointer-events-none mix-blend-overlay">
+            <svg height="100%" width="100%">
+                <filter id="noise">
+                    <feTurbulence baseFrequency="0.7" numOctaves="3" stitchTiles="stitch" type="fractalNoise"></feTurbulence>
+                </filter>
+                <rect filter="url(#noise)" height="100%" width="100%"></rect>
+            </svg>
+        </div>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div className="absolute top-[10%] left-[5%] animate-float" style={{ animationDelay: '0s' }}>
+                <div className="w-24 h-24 rounded-full border-4 border-black bg-primary shadow-hard opacity-90"></div>
+            </div>
+            <div className="absolute bottom-[15%] right-[10%] animate-float" style={{ animationDelay: '2s' }}>
+                <div className="w-32 h-32 rounded-lg rotate-12 border-4 border-black bg-accent-blue shadow-hard opacity-90"></div>
+            </div>
+            <div className="absolute top-[20%] right-[20%] opacity-10 rotate-12">
+                <span className="material-symbols-outlined text-[15rem]">smart_toy</span>
+            </div>
+            <div className="absolute bottom-[10%] left-[15%] opacity-10 -rotate-12">
+                <span className="material-symbols-outlined text-[12rem]">extension</span>
+            </div>
+        </div>
+        <div className="relative z-10 flex h-full w-full flex-col items-center justify-center p-8">
+            <div className="w-full max-w-5xl flex flex-col items-center justify-center h-full">
+                <h1 className="text-4xl md:text-6xl font-black uppercase tracking-wider text-cream text-shadow-hard-sm mb-6">
+                    Round 3
+                </h1>
+                <div className="relative transform -rotate-2 hover:scale-[1.02] transition-transform duration-300">
+                    <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-lg bg-black/40 blur-sm"></div>
+                    <div className="bg-primary border-4 border-black shadow-hard px-16 py-12 md:px-24 md:py-16 rounded-lg relative z-10">
+                        <h2 className="text-6xl md:text-8xl font-black text-background-dark leading-[0.85] text-center uppercase tracking-tighter">
+                            Get Ready<br />to Bluff!
+                        </h2>
                     </div>
                 </div>
-            </div>
-            <div className="flex flex-col items-center gap-3 text-center">
-                <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-wider text-card-cream text-shadow-hard transform -rotate-2">
-                    Get Ready to <span className="text-primary relative inline-block">Bluff!<div className="absolute bottom-2 left-0 w-full h-2 bg-black -z-10 translate-y-2 translate-x-2"></div></span>
-                </h2>
-                <p className="text-xl font-medium uppercase tracking-widest text-white/70 mt-4">Look at your phone to enter your answer</p>
-            </div>
-            <div className="w-full max-w-xl mt-8">
-                <div className="flex justify-between items-end mb-3 px-1">
+                <div className="absolute bottom-12 right-12 flex items-center gap-4">
                     <div className="flex items-center gap-2">
                         <span className="material-symbols-outlined text-primary animate-spin">hourglass_top</span>
-                        <span className="font-bold uppercase tracking-wider text-sm md:text-lg text-white">Starting in...</span>
+                        <span className="font-bold uppercase tracking-wider text-sm md:text-lg text-cream/80">Starting in...</span>
                     </div>
-                    <span className="font-black text-3xl text-primary text-shadow-hard-sm">03s</span>
+                    <span className="font-black text-4xl text-primary text-shadow-hard-sm">03s</span>
                 </div>
             </div>
         </div>
