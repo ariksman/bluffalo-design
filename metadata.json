@@ -1,0 +1,5 @@
+{
+  "name": "Bluff Trivia",
+  "description": "A party game application featuring host and player views, bluffing mechanics, and real-time interactive states.",
+  "requestFramePermissions": []
+}
