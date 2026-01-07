@@ -391,9 +391,16 @@ export const HostReveal = ({ type }: { type: 'lie' | 'truth' }) => (
 );
 
 // --- HOST SCOREBOARD ---
+const players = [
+    { rank: 1, name: "Sarah Jenkins", score: 14250, scoreChange: 1200, correctAnswers: 12, emoji: "🤪" },
+    { rank: 2, name: "Mike Ross", score: 12100, scoreChange: 0, emoji: "🤠" },
+    { rank: 3, name: "Jessica P.", score: 9850, scoreChange: -200, emoji: "🥸" },
+    { rank: 4, name: "David K.", score: 6400, scoreChange: 0, emoji: "🫠" },
+];
+
 export const HostScoreboard = () => (
     <div className="relative z-10 flex h-full w-full flex-col max-w-7xl mx-auto p-4 md:p-8 lg:p-10">
-        <header className="flex flex-col items-center justify-center shrink-0 mb-6 md:mb-10">
+        <header className="flex flex-col items-center justify-center shrink-0 mb-4 md:mb-6">
             <div className="bg-primary px-6 py-1.5 border-2 border-black shadow-hard transform -rotate-2 mb-3">
                 <h2 className="text-black text-sm md:text-lg font-black uppercase tracking-[0.2em]">Current Standings</h2>
             </div>
@@ -401,93 +408,113 @@ export const HostScoreboard = () => (
                 Scoreboard
             </h1>
         </header>
-        <main className="flex-1 w-full flex flex-col items-center overflow-y-auto pb-4 px-2">
+        <main className="flex-1 w-full flex flex-col items-center overflow-y-auto pb-4 px-4 md:px-6 pt-8">
             <div className="w-full max-w-4xl flex flex-col gap-4 md:gap-5">
-                <div className="group relative flex items-center justify-between bg-primary p-3 md:p-5 rounded-xl border-2 border-black shadow-hard transition-all hover:-translate-y-1 hover:shadow-hard-lg">
-                    <div className="absolute -left-3 md:-left-4 -top-3 md:-top-4 bg-white border-2 border-black rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center shadow-hard-sm z-20">
-                        <span className="material-symbols-outlined text-black font-black text-xl md:text-2xl">emoji_events</span>
-                    </div>
-                    <div className="flex items-center gap-4 md:gap-6 pl-2">
-                        <div className="relative shrink-0">
-                            <div className="h-14 w-14 md:h-20 md:w-20 rounded-full border-4 border-black bg-white flex items-center justify-center shadow-sm">
-                                <span className="text-3xl md:text-5xl">🤪</span>
+                {players.map(player => {
+                    if (player.rank > 3) {
+                        return (
+                            <div key={player.rank} className="group relative flex items-center justify-between bg-white/10 p-2 md:p-3 rounded-xl border border-white/20 backdrop-blur-sm opacity-60 scale-[0.98]">
+                                <div className="absolute -left-2 -top-2 bg-gray-700 border border-white/20 rounded-full w-8 h-8 flex items-center justify-center shadow-sm z-20">
+                                    <span className="font-bold text-white text-sm">{player.rank}</span>
+                                </div>
+                                <div className="flex items-center gap-4 pl-4">
+                                    <div className="relative shrink-0">
+                                        <div className="h-10 w-10 rounded-full border-2 border-gray-400 bg-white/90 flex items-center justify-center">
+                                            <span className="text-xl md:text-2xl">{player.emoji}</span>
+                                        </div>
+                                    </div>
+                                    <h3 className="text-white text-lg font-bold uppercase">{player.name}</h3>
+                                </div>
+                                <div className="flex flex-col items-end pr-2">
+                                    <span className="text-xl font-bold text-white/80">{player.score.toLocaleString()}</span>
+                                </div>
                             </div>
-                            <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-full border border-white/20">LEADER</div>
-                        </div>
-                        <div className="flex flex-col">
-                            <h3 className="text-black text-xl md:text-3xl font-black uppercase leading-none tracking-tight">Sarah Jenkins</h3>
-                            <p className="text-black/70 text-sm md:text-lg font-bold">12 Correct Answers</p>
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                        <span className="text-3xl md:text-5xl font-black text-black tracking-tighter">14,250</span>
-                        <div className="bg-black text-primary px-2 md:px-3 py-0.5 md:py-1 rounded-full border border-black/10 shadow-[2px_2px_0_0_rgba(255,255,255,0.3)] flex items-center gap-1 animate-pulse">
-                            <span className="material-symbols-outlined text-sm md:text-base font-bold">arrow_upward</span>
-                            <span className="font-bold text-xs md:text-sm">+1,200</span>
-                        </div>
-                    </div>
-                </div>
-                <div className="group relative flex items-center justify-between bg-card-cream p-3 md:p-4 rounded-xl border-2 border-black shadow-hard transition-all hover:-translate-y-1 opacity-100">
-                    <div className="absolute -left-3 -top-3 bg-gray-200 border-2 border-black rounded-full w-10 h-10 flex items-center justify-center shadow-hard-sm z-20">
-                        <span className="font-black text-black text-lg">2</span>
-                    </div>
-                    <div className="flex items-center gap-4 md:gap-6 pl-2">
-                        <div className="relative shrink-0">
-                            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full border-4 border-gray-800 bg-white flex items-center justify-center">
-                                <span className="text-2xl md:text-4xl">🤠</span>
+                        );
+                    }
+
+                    return (
+                        <div
+                            key={player.rank}
+                            className={`group relative flex items-center justify-between rounded-xl border-2 border-black shadow-hard transition-all hover:-translate-y-1
+                                ${player.rank === 1 ? 'bg-primary p-3 md:p-5 hover:shadow-hard-lg' : 'bg-game-cream p-3 md:p-4'}
+                                ${player.rank === 2 ? 'opacity-100' : ''}
+                                ${player.rank === 3 ? 'opacity-95' : ''}
+                            `}
+                        >
+                            <div
+                                className={`absolute -left-3 -top-3 border-2 border-black rounded-full w-10 h-10 flex items-center justify-center shadow-hard-sm z-20
+                                    ${player.rank === 1 ? 'md:-left-4 md:-top-4 md:w-12 md:h-12 bg-white' : ''}
+                                    ${player.rank === 2 ? 'bg-gray-200' : ''}
+                                    ${player.rank === 3 ? 'bg-[#cd7f32]' : ''}
+                                `}
+                            >
+                                {player.rank === 1 ? (
+                                    <span className="material-symbols-outlined text-black font-black text-xl md:text-2xl">emoji_events</span>
+                                ) : (
+                                    <span className={`font-black text-lg ${player.rank === 3 ? 'text-white' : 'text-black'}`}>{player.rank}</span>
+                                )}
+                            </div>
+                            <div className="flex items-center gap-4 md:gap-6 pl-2">
+                                <div className="relative shrink-0">
+                                    <div
+                                        className={`rounded-full border-4 flex items-center justify-center
+                                            ${player.rank === 1 ? 'h-14 w-14 md:h-20 md:w-20 border-black bg-white shadow-sm' : 'h-12 w-12 md:h-16 md:w-16 border-gray-800 bg-white'}
+                                        `}
+                                    >
+                                        <span className={`text-2xl ${player.rank === 1 ? 'md:text-5xl' : 'md:text-4xl'}`}>{player.emoji}</span>
+                                    </div>
+                                    {player.rank === 1 && (
+                                        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-black text-white text-[10px] md:text-xs font-bold px-2 py-0.5 rounded-full border border-white/20">LEADER</div>
+                                    )}
+                                </div>
+                                <div className="flex flex-col">
+                                    <h3
+                                        className={`font-black uppercase leading-none
+                                            ${player.rank === 1 ? 'text-black text-xl md:text-3xl tracking-tight' : 'text-game-blue text-lg md:text-2xl'}
+                                        `}
+                                    >
+                                        {player.name}
+                                    </h3>
+                                    {player.rank === 1 ? (
+                                        <p className="text-black/70 text-sm md:text-lg font-bold">{player.correctAnswers} Correct Answers</p>
+                                    ) : (
+                                        <p className="text-gray-500 text-xs md:text-sm font-bold uppercase tracking-wide">Rank #{player.rank}</p>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-end gap-1">
+                                <span
+                                    className={`font-black tracking-tighter
+                                        ${player.rank === 1 ? 'text-3xl md:text-5xl text-black' : 'text-2xl md:text-4xl text-game-blue'}
+                                    `}
+                                >
+                                    {player.score.toLocaleString()}
+                                </span>
+                                {player.scoreChange > 0 && (
+                                    <div className={
+                                        player.rank === 1
+                                            ? 'bg-black text-primary px-2 md:px-3 py-0.5 md:py-1 rounded-full border border-black/10 shadow-[2px_2px_0_0_rgba(255,255,255,0.3)] flex items-center gap-1 animate-pulse'
+                                            : 'bg-game-green text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full flex items-center gap-1'
+                                    }>
+                                        <span className="material-symbols-outlined text-sm md:text-base font-bold">arrow_upward</span>
+                                        <span className="font-bold text-xs md:text-sm">+{player.scoreChange.toLocaleString()}</span>
+                                    </div>
+                                )}
+                                {player.scoreChange < 0 && (
+                                    <div className="bg-red-100 border border-red-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                        <span className="material-symbols-outlined text-game-red text-xs md:text-sm font-bold">arrow_downward</span>
+                                        <span className="text-game-red font-bold text-xs md:text-sm">{player.scoreChange.toLocaleString()}</span>
+                                    </div>
+                                )}
+                                {player.scoreChange === 0 && player.rank !== 1 && (
+                                    <div className="flex items-center gap-1 opacity-60">
+                                        <span className="text-gray-500 font-bold text-xs md:text-sm">--</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
-                        <div className="flex flex-col">
-                            <h3 className="text-background-dark text-lg md:text-2xl font-black uppercase leading-none">Mike Ross</h3>
-                            <p className="text-gray-500 text-xs md:text-sm font-bold uppercase tracking-wide">Rank #2</p>
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-end">
-                        <span className="text-2xl md:text-4xl font-black text-background-dark tracking-tighter">12,100</span>
-                        <div className="flex items-center gap-1 opacity-60">
-                            <span className="text-gray-500 font-bold text-xs md:text-sm">--</span>
-                        </div>
-                    </div>
-                </div>
-                 <div className="group relative flex items-center justify-between bg-card-cream p-3 md:p-4 rounded-xl border-2 border-black shadow-hard transition-all hover:-translate-y-1 opacity-95">
-                    <div className="absolute -left-3 -top-3 bg-[#cd7f32] border-2 border-black rounded-full w-10 h-10 flex items-center justify-center shadow-hard-sm z-20">
-                        <span className="font-black text-white text-lg">3</span>
-                    </div>
-                    <div className="flex items-center gap-4 md:gap-6 pl-2">
-                        <div className="relative shrink-0">
-                            <div className="h-12 w-12 md:h-16 md:w-16 rounded-full border-4 border-gray-800 bg-white flex items-center justify-center">
-                                <span className="text-2xl md:text-4xl">🥸</span>
-                            </div>
-                        </div>
-                        <div className="flex flex-col">
-                            <h3 className="text-background-dark text-lg md:text-2xl font-black uppercase leading-none">Jessica P.</h3>
-                            <p className="text-gray-500 text-xs md:text-sm font-bold uppercase tracking-wide">Rank #3</p>
-                        </div>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                        <span className="text-2xl md:text-4xl font-black text-background-dark tracking-tighter">9,850</span>
-                        <div className="bg-red-100 border border-red-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
-                            <span className="material-symbols-outlined text-error-red text-xs md:text-sm font-bold">arrow_downward</span>
-                            <span className="text-error-red font-bold text-xs md:text-sm">-200</span>
-                        </div>
-                    </div>
-                </div>
-                 <div className="group relative flex items-center justify-between bg-white/10 p-2 md:p-3 rounded-xl border border-white/20 backdrop-blur-sm opacity-60 scale-[0.98]">
-                    <div className="absolute -left-2 -top-2 bg-gray-700 border border-white/20 rounded-full w-8 h-8 flex items-center justify-center shadow-sm z-20">
-                        <span className="font-bold text-white text-sm">4</span>
-                    </div>
-                    <div className="flex items-center gap-4 pl-4">
-                        <div className="relative shrink-0">
-                            <div className="h-10 w-10 rounded-full border-2 border-gray-400 bg-white/90 flex items-center justify-center">
-                                <span className="text-xl md:text-2xl">🫠</span>
-                            </div>
-                        </div>
-                        <h3 className="text-white text-lg font-bold uppercase">David K.</h3>
-                    </div>
-                    <div className="flex flex-col items-end pr-2">
-                        <span className="text-xl font-bold text-white/80">6,400</span>
-                    </div>
-                </div>
+                    );
+                })}
             </div>
         </main>
         <footer className="mt-4 md:mt-6 shrink-0 flex flex-col items-center gap-4 md:gap-6">
